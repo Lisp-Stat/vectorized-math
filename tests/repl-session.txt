@@ -1,0 +1,48 @@
+(load "/home/vscode/quicklisp/setup.lisp")
+(push (uiop:ensure-directory-pathname (uiop:getenv "VM_SYSTEM_DIR")) asdf:*central-registry*)
+(asdf:load-system :vectorized-math)
+(defpackage :vm-repl-user (:use :cl) (:shadowing-import-from :vm . #.(mapcar #'symbol-name (vm:shadowed-symbols))))
+(in-package :vm-repl-user)
+(format t "CHECK-SHADOWED ~S~%" (eq (symbol-package '+) (find-package :vm)))
+'a
+'b
+'c
+(format t "CHECK-HISTORY ~S~%" (equal (list + ++ +++) '((quote c) (quote b) (quote a))))
+1
+2
+3
+(format t "CHECK-VALUES ~S~%" (equal (list * ** ***) '(3 2 1)))
+(+ 1 2)
+(format t "CHECK-PREV-FORM ~S~%" (equal + '(+ 1 2)))
+(+ 1 2)
+(format t "CHECK-PREV-VALUE ~S~%" (equal * 3))
+(format t "CHECK-CALL ~S~%" (equal (list (+ 1 2) (funcall '+ 1 2) (funcall #'+ 1 2)) '(3 3 3)))
+(format t "CHECK-LET-VARIABLE ~S~%" (equal (list (let ((+ 5)) +) (let ((+ 5)) (+ + 1))) '(5 6)))
+(format t "CHECK-ARRAY ~S~%" (equalp (+ (make-array 2 :element-type 'double-float :initial-element 1d0) 1) #(2d0 2d0)))
+(format t "CHECK-SETQ ~S~%" (equal (list (setq + 3) cl:+ +) '(3 3 3)))
+10
+20
+30
++
+++
++++
+(list + ++ +++)
+(values 7 8)
+(format t "CHECK-SLASH ~S~%" (equal / '(7 8)))
+(values 1 2)
+(values 3 4)
+(values 5 6)
+(format t "CHECK-SLASHES ~S~%" (equal (list / // ///) '((5 6) (3 4) (1 2))))
+(format t "CHECK-MINUS ~S~%" (eq (car -) 'format))
+10
+20
+30
+(format t "CHECK-STARS-WITH-OPS ~S~%" (equal (list (* * 2) (- * 1) (/ ** 4) (+ *** 1) (1+ *) (1- **)) '(60 29 5 11 31 19)))
+(format t "CHECK-ALL-OPERATORS ~S~%" (equal (list (+ 1 2) (- 5 2) (* 3 4) (/ 12 4) (1+ 1) (1- 1) (- 3) (/ 4) (*) (+)) '(3 3 12 3 2 0 -3 1/4 1 0)))
+(format t "CHECK-ARRAY-OPERATORS ~S~%" (let ((d (make-array 2 :element-type 'double-float :initial-element 4d0))) (equalp (list (- d 1) (* d 2) (/ d 2) (1+ d) (1- d) (- d)) (list #(3d0 3d0) #(8d0 8d0) #(2d0 2d0) #(5d0 5d0) #(3d0 3d0) #(-4d0 -4d0)))))
+(format t "CHECK-INCF-DECF ~S~%" (let ((x 5) (v (vector 1 2))) (incf x) (decf x 3) (incf (aref v 0) 10) (equal (list x v) '(3 #(11 2))) (and (= x 3) (equalp v #(11 2)))))
+(format t "CHECK-DIVISION ~S~%" (let ((v (make-array 2 :element-type 'double-float :initial-element 7.5d0))) (multiple-value-bind (q r) (floor v 2) (and (equal (multiple-value-list (floor 7 2)) '(3 1)) (= (mod -7 4) 1) (= (gcd 12 18) 6) (typep 5 '(mod 10)) (not (typep 10 '(mod 10))) (equalp q #(3 3)) (equalp r #(1.5d0 1.5d0))))))
+(format t "CHECK-INTEGER ~S~%" (let ((a (make-array 3 :element-type '(signed-byte 64) :initial-contents '(12 10 6)))) (and (= (logand 12 10) 8) (= (ash 1 3) 8) (equalp (logand a 6) #(4 2 6)) (equalp (ash a 1) #(24 20 12)) (equalp (logbitp 1 a) #*011) (equalp (float a 1d0) #(12d0 10d0 6d0)) (= (float 1/2) 0.5) (= (rational 0.5) 1/2) (equal (list (numerator 3/4) (denominator 3/4)) '(3 4)) (= (scale-float 1d0 3) 8d0) (= (float-sign -2d0) -1d0) (eql (lognot 5) -6))))
+(format t "CHECK-TYPE-NAMES ~S~%" (and (typep 1.5 'float) (not (typep 1 'float)) (typep 1/2 '(rational 0 1)) (typep #c(1 2) '(complex integer)) (typep 5 '(mod 10)) (eq (find-class 'float) (find-class 'cl:float)) (eq (find-class 'rational) (find-class 'cl:rational)) (progn (defmethod tn-f ((x float)) :float) (defmethod tn-f ((x rational)) :rational) (equal (list (tn-f 1.5) (tn-f 1/2) (tn-f 3)) '(:float :rational :rational))) (eql (coerce 1 'float) 1.0)))
+(format t "CHECK-WILDCARD ~S~%" (and (typep (make-array 2 :element-type 'double-float) '(simple-array double-float (*))) (typep 5 '(integer 0 *)) (subtypep '(vector * 3) 'vector)))
+(format t "CHECK-SETQ-MINUS ~S~%" (progn (setq - 'm) (eq cl:- 'm)))

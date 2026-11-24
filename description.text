@@ -1,0 +1,11 @@
+Vectorized-math is a superset of Common Lisp's numeric operators. Package
+VM exports replacements for operators such as +, which behave exactly like
+their CL counterparts for numbers and apply elementwise, with R-style
+recycling, when any operand is an array. Float and complex float arrays are
+computed with Intel MKL Vector Math when it is installed, and with typed Lisp
+loops otherwise; integer arrays stay integer, with CL contagion rules and
+optional :into output arrays. A package that shadowing-imports the symbols
+from VM:SHADOWED-SYMBOLS gets array arithmetic with the usual operator names
+and no change to scalar code. It depends on CFFI and, optionally, MKL, and
+runs on SBCL and Clozure CL (Linux x86-64). Vectorized-math is part of the
+Lisp-Stat ecosystem.
