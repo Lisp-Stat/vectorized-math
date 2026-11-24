@@ -39,6 +39,7 @@
    #:register-kernel
    #:*mkl-available*
    #:*mkl-library*
+   #:*repl-variable-mode*
    #:load-mkl
    ;; conditions
    #:non-conformable-arrays
@@ -57,7 +58,7 @@ symbols returned by VM:SHADOWED-SYMBOLS gets the new behaviour."))
   ;; Non-operator exports of VM are defined here, by plain name.
   (:import-from #:vm
                 #:shadowed-symbols #:cutoff #:find-kernel #:register-kernel #:*mkl-available*
-                #:*mkl-library* #:load-mkl
+                #:*mkl-library* #:load-mkl #:*repl-variable-mode*
                 #:non-conformable-arrays #:recycling-warning #:output-type-error)
   (:documentation "Implementation of the VM package.  Uses CL, shadows nothing: the vm
 operators are defined by qualified name, e.g. (defun vm:+ ...)."))

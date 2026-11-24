@@ -167,13 +167,8 @@ signals DIVISION-BY-ZERO as in CL.  :INTO OUT as for VM:+.")
         'vm:float 'vm:rational 'vm:rationalize 'vm:numerator 'vm:denominator 'vm:scale-float 'vm:float-sign))
 
 ;;; --- REPL variables ---
-;;; + ++ +++ is the REPL's history of forms (likewise - * / ...).  A package that shadows
-;;; them would lose it, so each is also a symbol macro for the CL variable (a different
-;;; namespace from the function).  (spike S1: .agent-work/spikes/vm-shadowing/REPORT.md)
-(define-symbol-macro vm:+ cl:+)
-(define-symbol-macro vm:- cl:-)
-(define-symbol-macro vm:* cl:*)
-(define-symbol-macro vm:/ cl:/)
+;;; VM:+ VM:- VM:* VM:/ denote the REPL variables CL:+ CL:- CL:* CL:/ (repl-variables.lisp, loaded
+;;; first: nothing in this file may refer to them as variables before that).
 
 ;;; --- method combination ---
 ;;; (defgeneric f (x) (:method-combination +)) in a package shadowing VM:+

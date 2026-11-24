@@ -2,7 +2,8 @@
 # Pipes tests/repl-session.txt into a real REPL (stdin, not --load) of the given
 # implementation and checks that the REPL variables + ++ +++ work in a package that
 # shadowing-imports (vm:shadowed-symbols): + ++ +++ - * ** *** / // /// and
-# the operators and the type wildcard in that package.  Usage: repl-check.sh ccl|sbcl
+# the operators and the type wildcard in that package; also boundp/symbol-value of the names and
+# a global setf of CL's variable in another thread (the Swank and Jupyter case).  Usage: repl-check.sh ccl|sbcl
 set -uo pipefail
 impl=${1:?usage: repl-check.sh ccl|sbcl}
 here=$(cd "$(dirname "$0")" && pwd)
@@ -39,4 +40,16 @@ check 'CHECK-INTEGER T'
 check 'CHECK-TYPE-NAMES T'
 check 'CHECK-WILDCARD T'
 check 'CHECK-SETQ-MINUS T'
+check 'CHECK-BOUNDP T'
+check 'CHECK-SYMBOL-VALUE T'
+check 'CHECK-GLOBAL-SETF-OTHER-THREAD T'
+# the path chosen for the REPL variables: aliases on CCL, symbol macros on SBCL
+# (or wherever VM_REPL_VARIABLES=symbol-macro forces them)
+if [ "$impl" = sbcl ] || [ "${VM_REPL_VARIABLES:-}" = symbol-macro ]; then
+  check 'CHECK-MODE :SYMBOL-MACRO'
+elif grep -qF 'CHECK-MODE :NATIVE' <<<"$out"; then
+  check 'CHECK-MODE :NATIVE'
+else
+  check 'CHECK-MODE :DOWNSTREAM'
+fi
 exit $fail

@@ -19,6 +19,7 @@
 	       (:module "src"
 		:serial t
 		:components ((:file "pkgdcl")
+			     (:file "repl-variables")
 			     (:file "wildcard-hook")
 			     (:file "conditions")
 			     (:file "ffi")
@@ -58,6 +59,7 @@
 	       (:file "compare")
 	       (:file "division")
 	       (:file "integer")
+	       (:file "repl-variables")
 	       (:file "wildcard")
 	       (:file "typenames"))
   :perform (test-op (o s)
