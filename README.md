@@ -100,7 +100,7 @@ Vectorized-math is a superset of Common Lisp's numeric operators. The package `V
 
 * [Intel oneAPI Math Kernel Library](https://www.intel.com/content/www/us/en/developer/tools/oneapi/onemkl.html) (optional, loaded at run time)
 * [CFFI](https://github.com/cffi/cffi)
-* [clunit2](https://github.com/Lisp-Stat/clunit2) (tests)
+* [clunit2](https://codeberg.org/cage/clunit2) (tests)
 * [Bordeaux Threads](https://github.com/sionescu/bordeaux-threads) (tests)
 
 
@@ -559,15 +559,15 @@ Because array elements must equal what `cl:op` returns, the differences between 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/lisp-stat/vectorized-math.svg?style=for-the-badge
+[contributors-shield]: https://badgen.net/github/contributors/Lisp-Stat/vectorized-math
 [contributors-url]: https://github.com/Lisp-Stat/vectorized-math/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/lisp-stat/vectorized-math.svg?style=for-the-badge
+[forks-shield]: https://badgen.net/github/forks/Lisp-Stat/vectorized-math
 [forks-url]: https://github.com/Lisp-Stat/vectorized-math/network/members
-[stars-shield]: https://img.shields.io/github/stars/lisp-stat/vectorized-math.svg?style=for-the-badge
+[stars-shield]: https://badgen.net/github/stars/Lisp-Stat/vectorized-math
 [stars-url]: https://github.com/Lisp-Stat/vectorized-math/stargazers
-[issues-shield]: https://img.shields.io/github/issues/lisp-stat/vectorized-math.svg?style=for-the-badge
+[issues-shield]: https://badgen.net/github/open-issues/Lisp-Stat/vectorized-math
 [issues-url]: https://github.com/Lisp-Stat/vectorized-math/issues
-[license-shield]: https://img.shields.io/github/license/lisp-stat/vectorized-math.svg?style=for-the-badge
+[license-shield]: https://badgen.net/badge/license/MS-PL/blue
 [license-url]: https://github.com/Lisp-Stat/vectorized-math/blob/master/LICENSE
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-shield]: https://badgen.net/badge/icon/LinkedIn?icon=linkedin&label
 [linkedin-url]: https://www.linkedin.com/company/symbolics/
