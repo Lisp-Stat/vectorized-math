@@ -452,6 +452,8 @@ Reading the tables:
 
 ### Compatibility notes
 
+[Comparison with R and NumPy](docs/comparison-with-r-and-numpy.md) goes through every operator and notes where its behaviour differs from R's and NumPy's.
+
 **What changes in a package that shadows the operators.** Scalar code is unchanged (values, types, conditions; with declared argument types the compiler macros compile `(+ a b)` to the same machine code as `cl:+`, which `tests/bench-scalar.lisp` checks by disassembly on both implementations). What does change:
 
 * **The `*` wildcard and the type names** `float`, `rational`, `complex` and `mod` (see "The `*` wildcard" and the paragraph on types above). Both work through hooks in the implementation's type-specifier parser, installed at load time and checked by a self-test that signals an error if a future implementation version breaks them.
