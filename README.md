@@ -559,6 +559,8 @@ These are bugs in CCL's own functions on CCL 1.14 and earlier; vectorized-math d
 
 Because array elements must equal what `cl:op` returns, the differences between implementations show through (all are in the implementation's own scalar functions): CCL's `(expt -8d0 2d0)` is a complex number (`#C(63.99999999999998d0 -1.6d-14)`) while SBCL's is `64.0d0`, so a negative base with *any* float power gives a complex array on CCL but only with a non-integer power on SBCL; CCL's `(sqrt 4)` is the integer `2`; and `(atanh 2d0)` has imaginary part `-pi/2` on CCL and `+pi/2` on SBCL (an open question about which is right, reported as the issue [Clozure/ccl#741](https://github.com/Clozure/ccl/issues/741)). (The NaN tests in this library do not use comparisons, and the comparison operators of arrays do not rely on them; see "Comparisons, predicates, `max` and `min`".)
 
+On CCL 1.14 and earlier, `(signum -0.0)` is `0.0` where the CLHS gives `-0.0`, so `vm:signum` of an array holding `-0.0` gives `0.0` there. [Clozure/ccl#752](https://github.com/Clozure/ccl/pull/752) fixes it.
+
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://badgen.net/github/contributors/Lisp-Stat/vectorized-math
