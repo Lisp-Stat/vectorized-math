@@ -35,6 +35,14 @@
 			     (:file "integer")
 			     (:file "compiler-macro")))))
 
+;;; Several test files expand into large functions that take SBCL 150-270 MB each to compile.
+;;; Compiled one after another without a full collection, the garbage accumulates in the older
+;;; generations and SBCL's default 1 GB heap runs out, so collect before compiling each file.
+(defclass test-source-file (cl-source-file) ())
+
+(defmethod perform :before ((o compile-op) (c test-source-file))
+  #+sbcl (uiop:symbol-call :sb-ext :gc :full t))
+
 (defsystem "vectorized-math/tests"
   :description "Unit tests for vectorized-math."
   :author "Steve Nunez <steve@symbolics.tech>"
@@ -43,6 +51,7 @@
 	       #:clunit2
 	       #:bordeaux-threads)
   :pathname #P"tests/"
+  :default-component-class test-source-file
   :serial t
   :components ((:file "setup")
 	       (:file "scalar")

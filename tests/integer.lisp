@@ -383,9 +383,9 @@ TYPE-ERROR or SIMPLE-TYPE-ERROR: CL's own function signals the latter on SBCL)."
           (assert-true (subtypep (second o) 'type-error))
           (assert-equal 'integer (fourth o)))))
     ;; the datum is the first offending element / the scalar, like CL's
-    (assert-true (same-type-error-p (outcome (lambda () (cl:logand 1.5d0 1))) (array-outcome "logand" d 1)))
-    (assert-true (same-type-error-p (outcome (lambda () (cl:logand 1 "a"))) (array-outcome "logand" (iarr '(signed-byte 64) 1) "a")))
-    (assert-true (same-type-error-p (outcome (lambda () (cl:lognot 1.5d0))) (array-outcome "lognot" d)))
+    (assert-true (same-type-error-p (outcome (lambda () (cl:logand (opaque 1.5d0) 1))) (array-outcome "logand" d 1)))
+    (assert-true (same-type-error-p (outcome (lambda () (cl:logand 1 (opaque "a")))) (array-outcome "logand" (iarr '(signed-byte 64) 1) "a")))
+    (assert-true (same-type-error-p (outcome (lambda () (cl:lognot (opaque 1.5d0)))) (array-outcome "lognot" d)))
     ;; even for empty float arrays
     (assert-true (subtypep (second (array-outcome "logand" (make-arr 'double-float 0 nil) 1)) 'type-error))
     (assert-true (subtypep (second (array-outcome "lognot" (make-arr 'double-float 0 nil))) 'type-error))
@@ -404,8 +404,8 @@ TYPE-ERROR or SIMPLE-TYPE-ERROR: CL's own function signals the latter on SBCL)."
     (assert-equal 'float (fourth (array-outcome "float" (iarr '(signed-byte 64) 1 2) (iarr '(signed-byte 64) 1 2))))
     (assert-equal 'float (fourth (array-outcome "scale-float" (iarr '(signed-byte 64) 1 2) 1)))
     ;; (the expected type of the scale is what CL's function says: INTEGER, or FIXNUM on CCL without Clozure/ccl#743)
-    (assert-true (same-type-error-p (outcome (lambda () (cl:scale-float 1.5d0 1.5d0))) (array-outcome "scale-float" d 1.5d0)))
-    (assert-true (same-type-error-p (outcome (lambda () (cl:scale-float 1.5d0 1.5d0))) (array-outcome "scale-float" d d)))
+    (assert-true (same-type-error-p (outcome (lambda () (cl:scale-float 1.5d0 (opaque 1.5d0)))) (array-outcome "scale-float" d 1.5d0)))
+    (assert-true (same-type-error-p (outcome (lambda () (cl:scale-float 1.5d0 (opaque 1.5d0)))) (array-outcome "scale-float" d d)))
     (assert-equal 'float (fourth (array-outcome "float-sign" (iarr '(signed-byte 64) 1 2))))
     (assert-equal 'float (fourth (array-outcome "float-sign" d (iarr '(signed-byte 64) 1 2))))))
 
