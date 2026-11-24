@@ -13,9 +13,9 @@
 ;;;                           MKL VML (every size) or a typed Lisp loop when MKL is absent
 ;;;   integer / rational / T  the CL function per element (generic path), results normalised:
 ;;;                           (irrational functions of rationals give single-floats, as in CL)
-;;; R14: when CL returns a complex number for a real argument (SQRT of a negative, LOG of a
-;;; negative, ASIN of 2, ...) and ANY element of a real float array does so, the whole result
-;;; is a complex float array.  A pre-scan of the input decides; it agrees with CL's own
+;;; Out-of-domain arguments: when CL returns a complex number for a real argument (SQRT of a
+;;; negative, LOG of a negative, ASIN of 2, ...) and ANY element of a real float array does so,
+;;; the whole result is a complex float array.  A pre-scan of the input decides; it agrees with CL's own
 ;;; behaviour on the implementation (see DEF-DOMAIN-OP).
 
 (in-package #:vm.impl)
@@ -671,7 +671,7 @@ result is a complex array (as CL returns a complex for each such element)." t)
                  (not (operand-cplx a)) (not (operand-cplx b))
                  (not (operand-has-zero-p b)))
             ;; both real floats, no zero base (CL special-cases that): (/ (log x) (log base)),
-            ;; each log promoting to complex by R14, then the division with contagion
+            ;; each log promoting to complex when out of domain, then the division with contagion
             (operand-value (arith-step "/" (log-operand a) (log-operand b)))
             (generic-binary #'cl:log a b (shape-of a b) :empty-key :single-float)))))
 

@@ -276,7 +276,7 @@ T); abs signum conjugate realpart integer arrays; imagpart zeros."
     (assert-equal t (result-et (vm:expt r 2)))
     (assert-equal '(1/4 1/16 9) (contents (vm:expt r 2)))
     (assert-equal '(2 4 1/3) (contents (vm:expt r -1))))
-  ;; R14 for integers: a negative integer makes the result complex
+  ;; out-of-domain integers: a negative integer makes the result complex
   (let* ((a (iarr '(signed-byte 64) 4 -4 9)) (r (vm:sqrt a)) (refs (cl-elementwise #'cl:sqrt a)))
     (assert-equal (expected-et-of-values refs) (result-et r))
     (assert-true (every #'= refs (contents r)))
@@ -420,7 +420,7 @@ The maximum observed per operator and type goes to the ulp table."
           (loop for x in c for v in (contents r) do (assert-true (same-bits-p v x) name v x)))))))
 
 ;;; ---------------------------------------------------------------------------
-;;; R14: out-of-domain real arrays give complex arrays
+;;; Out-of-domain real arrays give complex arrays
 
 (defparameter *boundary-values*
   (list 0d0 -0d0 1d0 -1d0 0.5d0 -0.5d0 2d0 -2d0 1.0000000001d0 -1.0000000001d0 0.9999999999d0

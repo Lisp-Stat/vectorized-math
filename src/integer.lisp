@@ -8,7 +8,7 @@
 ;;;   VM:LOGNAND VM:LOGNOR VM:LOGANDC1 VM:LOGANDC2 VM:LOGORC1 VM:LOGORC2     binary
 ;;;   VM:LOGNOT VM:LOGCOUNT VM:INTEGER-LENGTH           unary
 ;;;   VM:ASH                                            integer, shift count
-;;;   VM:LOGBITP VM:LOGTEST                             bit-array results (R15)
+;;;   VM:LOGBITP VM:LOGTEST                             bit-array results
 ;;;   VM:FLOAT VM:SCALE-FLOAT VM:FLOAT-SIGN             float arrays
 ;;;   VM:RATIONAL VM:RATIONALIZE VM:NUMERATOR VM:DENOMINATOR     (signed-byte 64) or T arrays
 ;;;
@@ -26,7 +26,7 @@
 ;;; or exotic result gives T.  An empty result is (signed-byte 64) for integer results, bit for
 ;;; predicates, and the float format of the (first) float operand, or single-float, for float results.
 ;;;
-;;; Float traps: FLOAT, SCALE-FLOAT and FLOAT-SIGN on arrays run with the traps masked (R13), the
+;;; Float traps: FLOAT, SCALE-FLOAT and FLOAT-SIGN on arrays run with the traps masked, the
 ;;; others (no float arithmetic) in the caller's trap state, so CL's function sees them as CL does.
 
 (in-package #:vm.impl)

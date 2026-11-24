@@ -8,8 +8,7 @@
 ;;; specifiers -- (simple-array double-float (*)), (function (fixnum) *), deftype's
 ;;; &optional (n '*) -- reads as VM:*, which the implementation's type system does
 ;;; not know.  The hook below canonicalises VM:* to CL:* inside each implementation's
-;;; type-specifier parser.  It patches implementation internals (approved by the user,
-;;; 2026-11-23; spike: .agent-work/spikes/vm-shadowing/REPORT.md):
+;;; type-specifier parser.  It patches implementation internals:
 ;;;
 ;;;   CCL    ccl:advise on ccl::type-expand and ccl::%deftype
 ;;;   SBCL   sb-int:encapsulate on sb-kernel::%parse-type and sb-impl::%deftype

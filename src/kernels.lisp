@@ -47,7 +47,7 @@ table keyed by the list (name key variant) made it a third of the time of a smal
 (defvar *cutoffs* (make-hash-table :test 'equal))
 
 (defun default-cutoff (name)
-  "Measured crossover (bench/cutoff.lisp, phase 9): element count at which MKL beats the Lisp loop for real
+  "Measured crossover (bench/cutoff.lisp): element count at which MKL beats the Lisp loop for real
 arrays, per operation and implementation (the larger of single and double, rounded up to the grid of the
 sweep).  CCL: the Lisp loops are slow (boxed arithmetic), MKL wins from about 100 elements.  SBCL: its
 loops are fast, MKL wins from 200-400 elements for + - *, from about 50 for /."

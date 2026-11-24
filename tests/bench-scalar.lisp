@@ -103,7 +103,7 @@ loops with OP (when it takes one argument)."
           (flet ((f (kind side) (symbol-function (intern (format nil "U-~A-~A-~A" kind stem side)))))
             (row (format nil "~A (1 arg)" op) "double declared" (f "DOUBLE" "CL") (f "DOUBLE" "VM") vd od n)
             (row (format nil "~A (1 arg)" op) "generic (doubles)" (f "GENERIC" "CL") (f "GENERIC" "VM") vgd og n))))
-      ;; phase 4 operators (the loops store into a double array: sqrt of 3.5 is real)
+      ;; operators (the loops store into a double array: sqrt of 3.5 is real)
       (dolist (spec '(("abs" abs) ("sqrt" sqrt) ("exp" exp) ("sin" sin)))
         (destructuring-bind (op stem) spec
           (flet ((f (kind side) (symbol-function (intern (format nil "U-~A-~A-~A" kind stem side)))))
@@ -175,7 +175,7 @@ loops with OP (when it takes one argument)."
           (let ((n (symbol-name c)))
             (cmp (format nil "~A (fixnum)" n) '(a) '((fixnum a)) `(,c a) `(,v a))
             (cmp (format nil "~A (double)" n) '(a) '((double-float a)) `(,c a) `(,v a)))))
-      ;; phase 4: operators that CL inlines for declared types, and a few that it does not
+      ;; operators that CL inlines for declared types, and a few that it does not
       (dolist (pair '((cl:abs vm:abs) (cl:sqrt vm:sqrt) (cl:exp vm:exp) (cl:sin vm:sin) (cl:cos vm:cos)
                       (cl:log vm:log) (cl:signum vm:signum) (cl:phase vm:phase) (cl:atan vm:atan)))
         (destructuring-bind (c v) pair
@@ -193,7 +193,7 @@ loops with OP (when it takes one argument)."
       (cmp "log (double double)" '(a b) '((double-float a b)) '(cl:log a b) '(vm:log a b))
       (cmp "complex (double double)" '(a b) '((double-float a b)) '(cl:complex a b) '(vm:complex a b))
       (cmp "isqrt (fixnum)" '(a) '((type (integer 0 #.most-positive-fixnum) a)) '(cl:isqrt a) '(vm:isqrt a))
-      ;; phase 5: comparisons, max and min (n-ary too), predicates
+      ;; comparisons, max and min (n-ary too), predicates
       (dolist (pair '((cl:= vm:=) (cl:/= vm:/=) (cl:< vm:<) (cl:> vm:>) (cl:<= vm:<=) (cl:>= vm:>=)
                       (cl:max vm:max) (cl:min vm:min)))
         (destructuring-bind (c v) pair
@@ -217,7 +217,7 @@ loops with OP (when it takes one argument)."
           (let ((n (symbol-name c)))
             (cmp (format nil "~A (fixnum)" n) '(a) '((fixnum a)) `(,c a) `(,v a))
             (cmp (format nil "~A (integer)" n) '(a) '((integer a)) `(,c a) `(,v a)))))
-      ;; phase 6: division and rounding (two values), mod, rem, gcd, lcm
+      ;; division and rounding (two values), mod, rem, gcd, lcm
       (dolist (pair '((cl:floor vm:floor) (cl:ceiling vm:ceiling) (cl:truncate vm:truncate) (cl:round vm:round)
                       (cl:ffloor vm:ffloor) (cl:fceiling vm:fceiling) (cl:ftruncate vm:ftruncate)
                       (cl:fround vm:fround) (cl:mod vm:mod) (cl:rem vm:rem)))
@@ -243,7 +243,7 @@ loops with OP (when it takes one argument)."
             (cmp (format nil "~A (the fixnum ..)" n) '(a b) '() `(,c (the fixnum a) (the fixnum b))
                  `(,v (the fixnum a) (the fixnum b)))
             (cmp (format nil "~A (fixnum) 1 arg" n) '(a) '((fixnum a)) `(,c a) `(,v a)))))
-      ;; phase 7: bitwise, shifts, bit tests, conversions
+      ;; bitwise, shifts, bit tests, conversions
       (dolist (pair '((cl:logand vm:logand) (cl:logior vm:logior) (cl:logxor vm:logxor) (cl:logeqv vm:logeqv)))
         (destructuring-bind (c v) pair
           (let ((n (symbol-name c)))

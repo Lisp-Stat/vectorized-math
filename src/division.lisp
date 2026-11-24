@@ -27,7 +27,7 @@
 ;;; signals what it signals for that scalar (the same condition on both implementations for an
 ;;; unmasked trap; with the traps masked CL's own behaviour differs between implementations and is
 ;;; reproduced as it is).  Integer division by zero signals DIVISION-BY-ZERO as in CL.  The F family
-;;; and MOD, REM on float elements follow R13: no signal, IEEE results, defined for the pairs (x, y)
+;;; and MOD, REM on float elements give IEEE results and no signal, defined for the pairs (x, y)
 ;;; that CL's computation cannot handle (IEEE-DIVISION-SPECIAL below).  Everything else is CL's
 ;;; function.
 
@@ -644,8 +644,8 @@ signals for that scalar.  :INTO OUT receives the quotient; the remainder is a fr
   "Like ROUND for numbers (ties to even); two arrays for arrays, as VM:FLOOR.")
 (define-division-operator vm:ffloor
   "Like FFLOOR for numbers.  For arrays two arrays: the quotient as a float (CL's float type for the
-operands: integers and rationals give single-float), the remainder.  Float elements follow R13: x/0,
-Inf and NaN give IEEE results and no signal (see IEEE-DIVISION-SPECIAL).  :INTO OUT receives the quotient.")
+operands: integers and rationals give single-float), the remainder.  Float elements give IEEE results and no signal: x/0,
+Inf and NaN (see IEEE-DIVISION-SPECIAL).  :INTO OUT receives the quotient.")
 (define-division-operator vm:fceiling "Like FCEILING for numbers; two arrays for arrays, as VM:FFLOOR.")
 (define-division-operator vm:ftruncate "Like FTRUNCATE for numbers; two arrays for arrays, as VM:FFLOOR.")
 (define-division-operator vm:fround "Like FROUND for numbers; two arrays for arrays, as VM:FFLOOR.")

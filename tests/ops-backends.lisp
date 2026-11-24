@@ -137,7 +137,7 @@ array length or on the cutoff (they use MKL at every size)."
         (assert-true (every (lambda (x) (eql x -0d0)) (contents (/ nz two))))))))
 
 (deftest cutoff-defaults-and-accessor (ops-backend-tests)
-  ;; the defaults of phase 9 (bench/cutoff.lisp): see DEFAULT-CUTOFF in src/kernels.lisp
+  ;; the measured defaults (bench/cutoff.lisp): see DEFAULT-CUTOFF in src/kernels.lisp
   (assert-equal #+ccl 192 #+sbcl 64 #-(or ccl sbcl) 256 (vm:cutoff '/))
   (dolist (op '(+ - *))
     (assert-equal #+ccl 128 #+sbcl 256 #-(or ccl sbcl) 256 (vm:cutoff op)))

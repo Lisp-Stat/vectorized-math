@@ -2,7 +2,7 @@
 ;;; Copyright (c) 2026 by Symbolics Pte. Ltd. All rights reserved.
 ;;; SPDX-License-identifier: MS-PL
 ;;;
-;;; Phase 2b: non-numeric arrays, rank-0 arrays, threads.
+;;; Non-numeric arrays, rank-0 arrays, threads.
 (in-package #:vm-tests)
 
 (defsuite gap-tests (vm-tests))

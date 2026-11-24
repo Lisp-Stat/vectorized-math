@@ -8,7 +8,7 @@
 ;;;   * unary kernels  (out ooff a aoff n)  generated per element type, MKL-backed with a
 ;;;     Lisp fallback (registered under variant :U, see kernels.lisp)
 ;;;   * the generic path: CL's own function applied per element, results normalised to the
-;;;     tightest array that holds them (R14: real and complex results give a complex array)
+;;;     tightest array that holds them (real and complex results give a complex array)
 ;;;   * the pair indexer that maps a result element to the operand elements for the R
 ;;;     shape rules (used by the generic binary path and the out-of-domain scan of EXPT).
 
@@ -156,7 +156,7 @@ used at every size when MKL is available, so a result never depends on the array
   "TMP is a simple-vector of results (CL numbers), DIMS the result dimensions.  The tightest
 array: all single-floats (some complex: complex single-float), likewise double; all
 integers (a (signed-byte 64) array when NARROW-P and every one fits); otherwise element
-type T.  Real and complex results of the same float format give a complex array (R14).
+type T.  Real and complex results of the same float format give a complex array.
 An empty result has element type EMPTY-KEY."
   (declare (type simple-vector tmp))
   (let ((n (length tmp)) (kinds 0))

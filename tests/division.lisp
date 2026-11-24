@@ -532,7 +532,7 @@ with the traps as they are and masked, for every operator."
                                                     (if (floatp y) (if (typep y 'single-float) (sarr y) (darr y)) y))))))
                 ;; only the signalling cases and the unmasked values are comparable: masked F-family
                 ;; results are IEEE by definition, so compare the conditions only there
-                ;; The F family, MOD and REM convert the integer to the float format first (R13: a float
+                ;; The F family, MOD and REM convert the integer to the float format first (a float
                 ;; division, no signal), so a signal of CL's own function for the pair (SBCL's
                 ;; (rem 1f0 (expt 10 30)) overflows inside CL) does not occur when the conversion works.
                 (when (and (or (eq (car c) :condition) (not masked))

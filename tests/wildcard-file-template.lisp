@@ -1,6 +1,5 @@
 ;;; Template compiled by tests/wildcard.lisp with COMPILE-FILE twice, once with @PKG@ a package
-;;; shadowing-importing (vm:shadowed-symbols) and once with a plain package; derived from the
-;;; phase 1 spike (.agent-work/spikes/vm-shadowing/s2file.lisp).  RUN-CHECKS returns the printed
+;;; shadowing-importing (vm:shadowed-symbols) and once with a plain package.  RUN-CHECKS returns the printed
 ;;; results, which must be the same in both.
 (in-package :@PKG@)
 (deftype vec2 (&optional (n '*)) `(simple-array double-float (,n)))

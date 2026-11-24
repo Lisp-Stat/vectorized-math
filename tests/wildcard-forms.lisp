@@ -1,5 +1,4 @@
-;;; Corpus of type-specifier forms using the * wildcard (ported from the phase 1 spike,
-;;; .agent-work/spikes/vm-shadowing/s2-forms.lisp).  Each toplevel form is read and evaluated
+;;; Corpus of type-specifier forms using the * wildcard.  Each toplevel form is read and evaluated
 ;;; separately, once in a package that shadowing-imports (vm:shadowed-symbols) (so * is VM:*)
 ;;; and once in a plain package using only CL; the printed results must be identical.
 (typep (make-array 3 :element-type 'double-float) '(simple-array double-float (*)))

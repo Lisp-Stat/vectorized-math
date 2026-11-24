@@ -3,8 +3,7 @@
 ;;; SPDX-License-identifier: MS-PL
 ;;;
 ;;; Direct CFFI bindings to the MKL Vector Math Library, array pinning, FP trap
-;;; masking and per-thread VML mode.  Based on the phase 1 spike
-;;; (.agent-work/spikes/vm-ffi/REPORT.md).
+;;; masking and per-thread VML mode.
 
 (in-package #:vm.impl)
 
